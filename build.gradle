@@ -1,0 +1,37 @@
+buildscript {
+    ext.kotlin_version = '1.2.10'
+    ext.poi_version = '3.17'
+    ext.freemarker_version = '2.3.23'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+group 'gabek.reportgenerator'
+version '0.1'
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+mainClassName = "gabek.reportgenerator.ReportGeneratorKt"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.freemarker:freemarker:$freemarker_version"
+    compile "org.apache.poi:poi-ooxml:$poi_version"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
