@@ -1,5 +1,6 @@
 package gabek.reportgenerator
 
+import gabek.reportgenerator.input.CvsLoader
 import gabek.reportgenerator.worddom.style
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment
 import java.io.ByteArrayOutputStream
@@ -9,8 +10,8 @@ import java.io.OutputStreamWriter
 fun main(args: Array<String>) {
     val config = getTemplateEngine()
 
-    val data = loadExelFile(inputScheme, "data/workbook.xlsx")
-    val template = config.getTemplate("report_template.xml")
+    val data = CvsLoader.loadData(inputScheme, "data/test_input.csv")
+    val template = config.getTemplate("template.xml")
     val docBuffer = ByteArrayOutputStream()
 
     template.process(data.first(), OutputStreamWriter(docBuffer))
@@ -18,7 +19,7 @@ fun main(args: Array<String>) {
     val model = buildModel(docBuffer.toByteArray())
     val xDoc = model.generate(styles)
 
-    FileOutputStream("data/test.docx").use { outputStream ->
+    FileOutputStream("data/output.docx").use { outputStream ->
         xDoc.write(outputStream)
     }
 }
@@ -40,13 +41,5 @@ val styles = mapOf(
 )
 
 val inputScheme = listOf(
-        "FirstName", "LastName",
-        null, null, null, null, null, null, null, null,
-        "FallHours", null, "FallCourses",
-        null, null, null, null, null,
-        "SpringHours", null, "SpringCourses"
+        "FirstName", "LastName", "Role"
 )
-
-
-
-

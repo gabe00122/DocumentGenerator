@@ -1,0 +1,7 @@
+<document>
+    <title>Some info on ${FirstName} ${LastName}</title>
+
+    <paragraph>
+        Some interesting stuff.
+    </paragraph>
+</document>
