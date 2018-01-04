@@ -1,5 +1,7 @@
 package gabek.reportgenerator
 
+import gabek.reportgenerator.worddom.Style
+
 class StyleNode(val style: String, val parentNode: StyleNode? = null) {
     companion object {
         fun styles(vararg styles: String, parentNode: StyleNode? = null): StyleNode {
@@ -16,6 +18,16 @@ class StyleNode(val style: String, val parentNode: StyleNode? = null) {
             } else {
                 null
             }
+        }
+    }
+
+    inline fun applyStyles(styleMap: Map<String, Style>, block: Style.() -> Unit) {
+        styleMap[style]?.block()
+
+        var parent = parentNode
+        while (parent != null){
+            styleMap[parent.style]?.block()
+            parent = parent.parentNode
         }
     }
 }

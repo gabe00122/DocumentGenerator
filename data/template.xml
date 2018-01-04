@@ -4,4 +4,9 @@
     <paragraph>
         Some interesting stuff.
     </paragraph>
+
+    <table>
+        <tr><tc>One</tc><tc>Two</tc></tr>
+        <tr><tc>Three</tc><tc>Four</tc></tr>
+    </table>
 </document>

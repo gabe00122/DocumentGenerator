@@ -13,8 +13,9 @@ class Document {
         var childNode = document.firstChild
 
         while (childNode != null) {
-            if (childNode.nodeType == Node.ELEMENT_NODE) {
-                nodeList.add(Paragraph(childNode, style))
+            when (childNode.nodeName) {
+                "paragraph" -> nodeList.add(Paragraph(childNode, style))
+                "table" -> nodeList.add(Table(childNode, style))
             }
             childNode = childNode.nextSibling
         }
@@ -24,6 +25,8 @@ class Document {
         val xDoc = XWPFDocument()
 
         nodeList.forEach { it.generateTo(xDoc, styleMap) }
+
+
 
         return xDoc
     }
