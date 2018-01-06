@@ -1,19 +1,19 @@
 package gabek.reportgenerator.worddom
 
-import gabek.reportgenerator.StyleNode
+import gabek.reportgenerator.style.Style
 import org.apache.poi.xwpf.usermodel.XWPFTable
 import org.apache.poi.xwpf.usermodel.XWPFTableRow
 import org.w3c.dom.Node
 
-class TableRow(baseNode: Node, styleNode: StyleNode, private val number: Int) : WordNode<XWPFTable> {
+class TableRow(baseNode: Node, styleNode: StyleNode, private val number: Int) : WordNode<XWPFTable>(baseNode.nodeName, styleNode) {
     private val nodeList = ArrayList<WordNode<XWPFTableRow>>()
-    override val style = StyleNode(baseNode.nodeName, styleNode)
 
     init {
         loadXML(baseNode)
     }
 
     override fun generateTo(model: XWPFTable, styleMap: Map<String, Style>) {
+        super.generateTo(model, styleMap)
         val row = model.getRow(number) ?: model.createRow()
 
         for (node in nodeList) {
@@ -22,6 +22,7 @@ class TableRow(baseNode: Node, styleNode: StyleNode, private val number: Int) : 
     }
 
     override fun loadXML(baseNode: Node) {
+        super.loadXML(baseNode)
         var childNode = baseNode.firstChild
 
         var index = 0

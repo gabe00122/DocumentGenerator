@@ -1,0 +1,4 @@
+<styles>
+    <style name="title" fontSize="25" fontFamily="Times New Roman"/>
+    <style name="b" isBold="true"/>
+</styles>

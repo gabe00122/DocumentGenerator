@@ -1,12 +1,14 @@
 <document>
-    <title>Some info on ${FirstName} ${LastName}</title>
+    <p style="title, red">Some info on ${FirstName} ${LastName}</p>
 
-    <paragraph>
-        Some interesting stuff.
-    </paragraph>
+    <p>
+        <b>Some</b> interesting stuff on ${FirstName}.
+
+        <#if FirstName == "Julian">Bozo</#if>
+    </p>
+
 
     <table>
         <tr><tc>One</tc><tc>Two</tc></tr>
-        <tr><tc>Three</tc><tc>Four</tc></tr>
     </table>
 </document>

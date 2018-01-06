@@ -1,12 +1,16 @@
 package gabek.reportgenerator.worddom
 
-import gabek.reportgenerator.StyleNode
+import gabek.reportgenerator.style.Style
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.w3c.dom.Node
 
-class Document {
+class Document(document: Node) {
     private val nodeList = ArrayList<WordNode<XWPFDocument>>()
     private val style = StyleNode("document")
+
+    init {
+        loadXML(document)
+    }
 
     fun loadXML(document: Node) {
         document.normalize()
@@ -14,7 +18,7 @@ class Document {
 
         while (childNode != null) {
             when (childNode.nodeName) {
-                "paragraph" -> nodeList.add(Paragraph(childNode, style))
+                "p" -> nodeList.add(Paragraph(childNode, style))
                 "table" -> nodeList.add(Table(childNode, style))
             }
             childNode = childNode.nextSibling
@@ -25,8 +29,6 @@ class Document {
         val xDoc = XWPFDocument()
 
         nodeList.forEach { it.generateTo(xDoc, styleMap) }
-
-
 
         return xDoc
     }

@@ -1,8 +1,9 @@
-package gabek.reportgenerator.worddom
+package gabek.reportgenerator.style
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment
 import org.apache.poi.xwpf.usermodel.XWPFParagraph
 import org.apache.poi.xwpf.usermodel.XWPFRun
+import org.w3c.dom.Node
 
 class Style {
     var fontFamily: String? = null
@@ -21,6 +22,15 @@ class Style {
 
     internal fun applyToParagraph(p: XWPFParagraph) {
         paragraphAlignment?.let { p.alignment = it }
+    }
+
+    fun loadXML(node: Node) = with (node.attributes) {
+        getNamedItem("fontFamily")?.let { fontFamily = it.nodeValue }
+        getNamedItem("fontSize")?.let { fontSize = it.nodeValue.toInt() }
+        getNamedItem("fontColor")?.let { fontColor = it.nodeValue }
+        getNamedItem("isBold")?.let { isBold = it.nodeValue.toBoolean() }
+
+        getNamedItem("paragraphAlignment")?.let { paragraphAlignment = ParagraphAlignment.valueOf(it.nodeValue) }
     }
 }
 

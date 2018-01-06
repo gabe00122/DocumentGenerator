@@ -1,11 +1,10 @@
 package gabek.reportgenerator.worddom
 
-import gabek.reportgenerator.StyleNode
+import gabek.reportgenerator.style.Style
 import org.apache.poi.xwpf.usermodel.XWPFTableRow
 import org.w3c.dom.Node
 
-class TableCell(baseNode: Node, styleNode: StyleNode, private val number: Int) : WordNode<XWPFTableRow> {
-    override val style = StyleNode(baseNode.nodeName, styleNode)
+class TableCell(baseNode: Node, styleNode: StyleNode, private val number: Int) : WordNode<XWPFTableRow>(baseNode.nodeName, styleNode) {
     var text = ""
 
     init {
@@ -13,14 +12,13 @@ class TableCell(baseNode: Node, styleNode: StyleNode, private val number: Int) :
     }
 
     override fun generateTo(model: XWPFTableRow, styleMap: Map<String, Style>) {
+        super.generateTo(model, styleMap)
         val cell = model.getCell(number) ?: model.createCell()
-        //cell.text = text
-        //val p = cell.addParagraph()
-        //val r = p.createRun()
         cell.text = text
     }
 
     override fun loadXML(baseNode: Node) {
+        super.loadXML(baseNode)
         text = baseNode.textContent
     }
 }
