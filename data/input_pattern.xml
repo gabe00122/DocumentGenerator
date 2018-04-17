@@ -1,0 +1,18 @@
+
+<pattern>
+    <field name="FirstName" col="A"/>
+    <field name="LastName" col="B"/>
+    <field name="FallHours" col="K"/>
+    <field name="FallOverload" col="J"/>
+    <field name="FallCourses" col="L"/>
+    <field name="SpringHours" col="R"/>
+    <field name="SpringOverload" col="S"/>
+    <field name="SpringCourses" col="T"/>
+
+    <field name="InternshipNumber" col="W"/>
+
+
+    <field name="UndergradBookAuthors" col="AG"/>
+    <field name="GraduateBookAuthors" col="AH"/>
+
+</pattern>

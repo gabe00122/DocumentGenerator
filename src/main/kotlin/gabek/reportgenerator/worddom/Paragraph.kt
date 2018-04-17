@@ -5,7 +5,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.apache.poi.xwpf.usermodel.XWPFParagraph
 import org.w3c.dom.Node
 
-class Paragraph(baseNode: Node, styleNode: StyleNode) : WordNode<XWPFDocument>(baseNode.nodeName, styleNode) {
+class Paragraph(baseNode: Node) : WordNode<XWPFDocument>(baseNode.nodeName) {
     private val nodeList = ArrayList<WordNode<XWPFParagraph>>()
 
     init {
@@ -17,25 +17,19 @@ class Paragraph(baseNode: Node, styleNode: StyleNode) : WordNode<XWPFDocument>(b
         var childNode = baseNode.firstChild
 
         while (childNode != null) {
-            nodeList.add(TextRun(childNode, style))
+            nodeList.add(TextRun(childNode))
             childNode = childNode.nextSibling
         }
     }
 
-    override fun generateTo(model: XWPFDocument, styleMap: Map<String, Style>) {
-        super.generateTo(model, styleMap)
+    override fun generateTo(model: XWPFDocument, parentStyle: StyleNode?, styleMap: Map<String, Style>) {
+        super.generateTo(model, parentStyle, styleMap)
         val p = model.createParagraph()
-        applyStyle(p, styleMap, style)
+
+        val styleNode = styleNodes(parentStyle, styleMap)
+        styleNode?.applyStyle(p)
         for (r in nodeList) {
-            r.generateTo(p, styleMap)
-        }
-    }
-
-    private tailrec fun applyStyle(p: XWPFParagraph, context: Map<String, Style>, styleNode: StyleNode){
-        context[styleNode.style]?.applyToParagraph(p)
-
-        if (styleNode.parentNode != null) {
-            applyStyle(p, context, styleNode.parentNode)
+            r.generateTo(p, styleNode, styleMap)
         }
     }
 }

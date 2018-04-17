@@ -1,5 +1,5 @@
-buildscript {
-    ext.kotlin_version = '1.2.10'
+ buildscript {
+    ext.kotlin_version = '1.2.30'
     ext.poi_version = '3.17'
     ext.freemarker_version = '2.3.23'
 

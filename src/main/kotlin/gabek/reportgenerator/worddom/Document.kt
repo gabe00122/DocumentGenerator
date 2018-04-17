@@ -4,32 +4,36 @@ import gabek.reportgenerator.style.Style
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.w3c.dom.Node
 
-class Document(document: Node) {
+class Document(document: Node): WordNode<XWPFDocument>(document.nodeName) {
     private val nodeList = ArrayList<WordNode<XWPFDocument>>()
-    private val style = StyleNode("document")
 
     init {
         loadXML(document)
     }
 
-    fun loadXML(document: Node) {
-        document.normalize()
-        var childNode = document.firstChild
+    override fun loadXML(baseNode: Node) {
+        super.loadXML(baseNode)
+
+        baseNode.normalize()
+        var childNode = baseNode.firstChild
 
         while (childNode != null) {
             when (childNode.nodeName) {
-                "p" -> nodeList.add(Paragraph(childNode, style))
-                "table" -> nodeList.add(Table(childNode, style))
+                "p" -> nodeList.add(Paragraph(childNode))
+                "table" -> nodeList.add(Table(childNode))
             }
             childNode = childNode.nextSibling
         }
     }
 
-    fun generate(styleMap: Map<String, Style>): XWPFDocument {
-        val xDoc = XWPFDocument()
+    fun generate(styleMap: Map<String, Style>)
+            = XWPFDocument().also { generateTo(it, null, styleMap) }
 
-        nodeList.forEach { it.generateTo(xDoc, styleMap) }
 
-        return xDoc
+    override fun generateTo(model: XWPFDocument, parentStyle: StyleNode?, styleMap: Map<String, Style>) {
+        super.generateTo(model, parentStyle, styleMap)
+
+        val nodes = styleNodes(parentStyle, styleMap)
+        nodeList.forEach { it.generateTo(model, nodes, styleMap) }
     }
 }

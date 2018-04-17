@@ -5,41 +5,42 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph
 import org.apache.poi.xwpf.usermodel.XWPFRun
 import org.w3c.dom.Node
 
-class TextRun(baseNode: Node, styleNode: StyleNode) : WordNode<XWPFParagraph>(baseNode.nodeName, styleNode) {
+class TextRun(baseNode: Node) : WordNode<XWPFParagraph>(baseNode.nodeName) {
     private var text = ""
 
     init {
         loadXML(baseNode)
     }
 
-    override fun generateTo(model: XWPFParagraph, styleMap: Map<String, Style>){
-        super.generateTo(model, styleMap)
+    override fun generateTo(model: XWPFParagraph, parentStyle: StyleNode?, styleMap: Map<String, Style>) {
+        super.generateTo(model, parentStyle, styleMap)
 
-        val dRun = model.createRun()
-        applyStyle(dRun, styleMap, style)
-        dRun.setText(text)
+        if (text.isNotBlank()) {
+            val r = model.createRun()
+            styleNodes(parentStyle, styleMap)?.applyStyle(r)
+
+            val lines = text.split("\n")
+            for (i in 0 until lines.size) {
+                r.setText(lines[i])
+                if (i < lines.size - 1 || lines[i].isBlank()) {
+                    r.addCarriageReturn()
+                }
+            }
+        }
     }
 
     override fun loadXML(baseNode: Node) {
         super.loadXML(baseNode)
 
         text = if (baseNode.nodeType == Node.ELEMENT_NODE) {
-            baseNode.firstChild.nodeValue
+            baseNode.firstChild?.nodeValue
         } else {
             baseNode.nodeValue
-        }
+        } ?: ""
         text = text.replace(PATTERN, "\n")
     }
 
-    private tailrec fun applyStyle(r: XWPFRun, context: Map<String, Style>, styleNode: StyleNode) {
-        context[styleNode.style]?.applyToRun(r)
-
-        if (styleNode.parentNode != null) {
-            applyStyle(r, context, styleNode.parentNode)
-        }
-    }
-
     companion object {
-        private val PATTERN = "\n\\s+".toRegex()
+        private val PATTERN = "\\n\\s+".toRegex()
     }
 }

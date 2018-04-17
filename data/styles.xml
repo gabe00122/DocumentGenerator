@@ -1,4 +1,7 @@
 <styles>
-    <style name="title" fontSize="25" fontFamily="Times New Roman"/>
+    <style name="document" fontSize="12" fontFamily="Times New Roman"/>
+    <style name="title" isBold="true" paragraphAlignment="CENTER"/>
+    <style name="table" fontFamily=""/>
     <style name="b" isBold="true"/>
+    <style name="v" fontColor="ff0000"/>
 </styles>
