@@ -1,21 +1,27 @@
 package gabek.reportgenerator
 
-import gabek.reportgenerator.input.ExelLoader
-import gabek.reportgenerator.input.InputPatternLoader
+import gabek.reportgenerator.input.CvsLoader
 import gabek.reportgenerator.style.loadStyles
-import java.io.File
 import java.io.FileOutputStream
 
 fun main(args: Array<String>) {
-    val inputScheme = InputPatternLoader.loadInputPattern(File("data/input_pattern.xml"))
+    //val inputScheme = InputPatternLoader.loadInputPattern(File("data/input_pattern.xml"))
 
-    val data = ExelLoader.loadData(inputScheme, "data/input.xlsx")
+    val data = CvsLoader.loadData("data/data.csv")
     val styles = loadStyles("data/styles.xml")
+    val template = Template("data/simple_temp.xml")
 
-    val model = buildModel("report_template.ftl", data[2])
-    val xDoc = model.generate(styles)
+    for (i in 0 until data.size) {
+        val person = data[i]
+        val fileName = "${person["FirstName"]}_${person["LastName"]}"
 
-    FileOutputStream("data/output.docx").use { outputStream ->
-        xDoc.write(outputStream)
+        println("Generation file for: $fileName")
+
+        val model = buildModel(template, person)
+        val xDoc = model.render(styles)
+
+        FileOutputStream("data/output/$fileName.docx").use { outputStream ->
+            xDoc.write(outputStream)
+        }
     }
 }

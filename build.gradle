@@ -1,7 +1,7 @@
  buildscript {
-    ext.kotlin_version = '1.2.30'
+    ext.kotlin_version = '1.2.40'
     ext.poi_version = '3.17'
-    ext.freemarker_version = '2.3.23'
+    ext.jtwig_version = '5.87.0.RELEASE'
 
     repositories {
         mavenCentral()
@@ -25,7 +25,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "org.freemarker:freemarker:$freemarker_version"
+    compile "org.jtwig:jtwig-core:$jtwig_version"
     compile "org.apache.poi:poi-ooxml:$poi_version"
 }
 

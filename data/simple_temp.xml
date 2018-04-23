@@ -1,0 +1,6 @@
+<document>
+	<p>
+		FirstName: {{FirstName}}
+		LastName: {{LastName}}
+	</p>
+</document>

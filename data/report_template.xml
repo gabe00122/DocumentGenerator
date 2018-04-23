@@ -1,18 +1,18 @@
 
 <document>
     <p style="title">
-        Peer Evaluation for <v>${FirstName} ${LastName}</v>, PhD
+        Peer Evaluation for <v>{{FirstName}} {{LastName}}</v>, PhD
         2017-2018 Academic Year
     </p>
 
     <p>
         <b>Teaching</b>
 
-	    Dr. <v>${LastName}</v> taught <v>${FallHours}</v> hours (<v>${FallCourses}</v>) in the fall and <v>${SpringHours}</v> hours (<v>${SpringCourses}</v>) in the spring.
-        During the 2017-2018 academic year, Dr. <v>${LastName}</v> was classified as research active/inactive. If applicable, additional adjustments to workload are listed here:
+	    Dr. <v>{{LastName}}</v> taught <v>{{FallHours}}</v> hours (<v>{{FallCourses}}</v>) in the fall and <v>{{SpringHours}}</v> hours (<v>{{SpringCourses}}</v>) in the spring.
+        During the 2017-2018 academic year, Dr. <v>{{LastName}}</v> was classified as research active/inactive. If applicable, additional adjustments to workload are listed here:
 
         <v>
-            ${FallOverload} ${SpringOverload}
+            {{FallOverload}} {{SpringOverload}}
         </v>
     </p>
 
@@ -33,30 +33,30 @@
             <tc># of DIS Credits Supervised</tc>
         </tr>
         <tr style="v">
-            <tc>${InternshipNumber!}</tc>
-            <tc>${MANumber!}</tc>
-            <tc>${HonorsNumber!}</tc>
-            <tc>${ThesisCommitteeNumber!}</tc>
-            <tc>${DISNumber!}</tc>
+            <tc>{{InternshipNumber}}</tc>
+            <tc>{{MANumber}}</tc>
+            <tc>{{HonorsNumber}}</tc>
+            <tc>{{ThesisCommitteeNumber}}</tc>
+            <tc>{{DISNumber}}</tc>
         </tr>
     </table>
 
     <p>
-        Dr. <v>${LastName!}</v> developed the following new courses:
-        <v>${NewCourses!}</v>
+        Dr. <v>{{LastName}}</v> developed the following new courses:
+        <v>{{NewCourses}}</v>
 
-        Dr. <v>${LastName!}</v>'s efforts to improve teaching included:
-        <v>${TeachingEfforts!}</v>
+        Dr. <v>{{LastName}}</v>'s efforts to improve teaching included:
+        <v>{{TeachingEfforts}}</v>
 
-        Awards received by Dr. <v>${LastName!}</v>'s students included:
-        <v>${StudentAwards!}</v>
+        Awards received by Dr. <v>{{LastName}}</v>'s students included:
+        <v>{{StudentAwards}}</v>
     </p>
 
     <p>
         <b>Research</b>
 
-        Peer-Reviewed Articles and Citations: Dr. <v>${LastName}</v> published <v>${SeniorAuthoredArticles!}</v>
-        peer-reviewed journal articles as senior author and co-authored <v>${NonSeniorAuthoredArticles!}</v> peer-reviewed journal articles, the full citations of which are listed here:
+        Peer-Reviewed Articles and Citations: Dr. <v>{{LastName}}</v> published <v>{{SeniorAuthoredArticles}}<v>
+        peer-reviewed journal articles as senior author and co-authored <v>{{NonSeniorAuthoredArticles}}</v> peer-reviewed journal articles, the full citations of which are listed here:
         <v>${APACitations!}</v>
     </p>
 

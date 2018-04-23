@@ -26,7 +26,7 @@ class Document(document: Node): WordNode<XWPFDocument>(document.nodeName) {
         }
     }
 
-    fun generate(styleMap: Map<String, Style>)
+    fun render(styleMap: Map<String, Style>)
             = XWPFDocument().also { generateTo(it, null, styleMap) }
 
 
